@@ -28,7 +28,8 @@ const willFormDiff = (file1, file2) => { // формируем дифф
   const diffData = ['{'];
 
   keys.map((key) => {
-    if ((_.has(parseFile1, key) && _.has(parseFile2, key) && parseFile1[key] !== parseFile2[key])) {
+    if ((_.has(parseFile1, key) &&
+         _.has(parseFile2, key) && parseFile1[key] !== parseFile2[key])) {
       diffData.push(` - ${key}:${parseFile1[key]}`);
       diffData.push(` + ${key}:${parseFile2[key]}`);
     } else if ((_.has(parseFile1, key) && _.has(parseFile2, key)

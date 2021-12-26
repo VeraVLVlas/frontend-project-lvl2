@@ -1,11 +1,11 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/VeraVLVlas/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/VeraVLVlas/frontend-project-lvl2/actions)",
+  "description": "library showing the difference between files",
   "main": "src/gen-diff/gendiff.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest --bail"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -25,8 +25,13 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@jest/globals": "^27.4.4",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3"
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "jest": "^27.4.5",
+    "jest-cli": "^27.4.5",
+    "simple-git-hooks": "^2.7.0"
   }
 }
