@@ -1,0 +1,7 @@
+{
+  "timeout": 20,
+  "verbose": true,
+  "host": "hexlet.io",
+  "task": 4,
+  "user": "Vera"
+}

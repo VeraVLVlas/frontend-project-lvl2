@@ -1,5 +1,10 @@
 {
   "name": "@hexlet/code",
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "transform": {}
+  },
   "version": "1.0.0",
   "description": "library showing the difference between files",
   "main": "src/gen-diff/gendiff.js",

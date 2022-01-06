@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v1
         name: 'setup node'
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
       - name: 'installation'
         run: npm ci
@@ -22,3 +22,12 @@ jobs:
       
       - name: 'run tests'
         run: npx jest
+
+      - name: 'publish code coverage'
+        uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true

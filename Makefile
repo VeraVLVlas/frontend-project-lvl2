@@ -5,3 +5,7 @@ install:
 #команда запустит eslint
 lint:
 	npx eslint .
+
+#команда покажет статистику покрытия кода тестами
+test-coverage:
+	npx jest --coverage

@@ -3,62 +3,60 @@ import { readFileSync } from 'fs';
 import _ from 'lodash';
 import path from 'path';
 
-const getSortedKeys = (data) => { // получаем уникальные  ключи
-  const keys = [];
-  Object.keys(data).forEach((key) => {
-    keys.push(key);
-  });
+const getSortedKeys = (data) => {
+  const keys = Object.keys(data).map((key) => key);
 
   return _.sortBy(keys);
 };
 
-const printDiff = (data) => { // печатаем результат
-  const result = data.forEach((elem) => console.log(elem));
-  return result;
+const printDiff = (data) => {
+  console.log('{');
+  data.map((elem) => console.log(elem));
+  console.log('}');
 };
 
-const willFormDiff = (file1, file2) => { // формируем дифф
-  const parseFile1 = JSON.parse(file1);
-  const parseFile2 = JSON.parse(file2);
-
-  const copyData = { ...parseFile1, ...parseFile2 };
+const willFormDiff = (file1, file2) => {
+  const copyData = { ...file1, ...file2 };
 
   const keys = getSortedKeys(copyData);
 
-  const diffData = ['{'];
-
-  keys.map((key) => {
-    if ((_.has(parseFile1, key) &&
-         _.has(parseFile2, key) && parseFile1[key] !== parseFile2[key])) {
-      diffData.push(` - ${key}:${parseFile1[key]}`);
-      diffData.push(` + ${key}:${parseFile2[key]}`);
-    } else if ((_.has(parseFile1, key) && _.has(parseFile2, key)
-    && parseFile1[key] === parseFile2[key])) {
-      diffData.push(`   ${key}:${parseFile1[key]}`);
-    } else if ((_.has(parseFile1, key))) {
-      diffData.push(` - ${key}:${parseFile1[key]}`);
-    } else {
-      diffData.push(` + ${key}:${parseFile2[key]}`);
+  const diffData = keys.map((key) => {
+    if ((_.has(file1, key)
+    && _.has(file2, key) && file1[key] !== file2[key])) {
+      return ([
+        ` - ${key}:${file1[key]}`,
+        ` + ${key}:${file2[key]}`,
+      ]);
+    } if ((_.has(file1, key) && _.has(file2, key)
+    && file1[key] === file2[key])) {
+      return `   ${key}:${file1[key]}`;
+    } if ((_.has(file1, key))) {
+      return ` - ${key}:${file1[key]}`;
     }
-    return diffData;
+    return ` + ${key}:${file2[key]}`;
   });
 
-  diffData.push('}');
-  return printDiff(diffData);
+  return diffData.flat();
 };
 
-const readFile = (file1, file2) => { // читаем файл
-  const dataFile1 = readFileSync(file1);
-  const dataFile2 = readFileSync(file2);
-  const diff = willFormDiff(dataFile1, dataFile2);
-  console.log(diff);
-  return diff;
-};
-
-export default (filepath1, filepath2) => { // формируем полный путь до файлов
+const readFiles = (pathFile) => {
   const workDir = cwd();
-  const filePath1 = path.resolve(workDir, filepath1);
-  const filePath2 = path.resolve(workDir, filepath2);
-  const result = readFile(filePath1, filePath2);
-  return result;
+  const filePath = path.resolve(workDir, pathFile);
+  const data = readFileSync(filePath);
+
+  return JSON.parse(data);
+};
+
+export default (filepath1, filepath2) => {
+  const file1 = readFiles(filepath1);
+  const file2 = readFiles(filepath2);
+  const diff = willFormDiff(file1, file2);
+
+  return printDiff(diff);
+};
+
+export {
+  readFiles,
+  willFormDiff,
+  getSortedKeys,
 };
