@@ -11,3 +11,6 @@
 
 ### Codeclimate code coverage
 <a href="https://codeclimate.com/github/VeraVLVlas/frontend-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/484e794fb212bb8d1969/test_coverage" /></a>
+
+### Application example
+<a href='https://asciinema.org/a/ICVaUXghTVtuRZfdF2cZlgjn6'>link</a>

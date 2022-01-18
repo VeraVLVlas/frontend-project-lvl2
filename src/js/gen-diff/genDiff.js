@@ -1,21 +1,17 @@
-import { cwd } from 'process';
-import { readFileSync } from 'fs';
 import _ from 'lodash';
-import path from 'path';
+import parsersFile from '../parsers/parsers.js';
 
 const getSortedKeys = (data) => {
   const keys = Object.keys(data).map((key) => key);
-
   return _.sortBy(keys);
 };
 
-const printDiff = (data) => {
-  console.log('{');
-  data.map((elem) => console.log(elem));
-  console.log('}');
+const willFormDiff = (data) => {
+  const result = data.map((elem) => elem);
+  return `{\n${result.join('\n')} \n}`;
 };
 
-const willFormDiff = (file1, file2) => {
+const processesData = (file1, file2) => {
   const copyData = { ...file1, ...file2 };
 
   const keys = getSortedKeys(copyData);
@@ -39,24 +35,15 @@ const willFormDiff = (file1, file2) => {
   return diffData.flat();
 };
 
-const readFiles = (pathFile) => {
-  const workDir = cwd();
-  const filePath = path.resolve(workDir, pathFile);
-  const data = readFileSync(filePath);
-
-  return JSON.parse(data);
-};
-
 export default (filepath1, filepath2) => {
-  const file1 = readFiles(filepath1);
-  const file2 = readFiles(filepath2);
-  const diff = willFormDiff(file1, file2);
+  const file1 = parsersFile(filepath1);
+  const file2 = parsersFile(filepath2);
+  const diff = processesData(file1, file2);
 
-  return printDiff(diff);
+  return willFormDiff(diff);
 };
 
 export {
-  readFiles,
-  willFormDiff,
+  processesData,
   getSortedKeys,
 };
