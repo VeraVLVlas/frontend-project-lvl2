@@ -2,10 +2,14 @@ import yaml from 'js-yaml';
 import { readFileSync } from 'fs';
 import path from 'path';
 
-const getFileExtension = (pathFile) => path.extname(pathFile);
+const getFileExtension = (pathFile) => {
+  const fileName = pathFile.split('/').pop();
+  const fileExtension = path.extname(fileName);
+  return [pathFile, fileExtension];
+};
 
-export default (pathFile) => {
-  const fileExtension = getFileExtension(pathFile);
+export default (fileData) => {
+  const [pathFile, fileExtension] = getFileExtension(fileData);
 
   switch (fileExtension) {
     case '.yaml':

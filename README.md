@@ -12,5 +12,11 @@
 ### Codeclimate code coverage
 <a href="https://codeclimate.com/github/VeraVLVlas/frontend-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/484e794fb212bb8d1969/test_coverage" /></a>
 
-### Application example
+### Application example for flat wood
 <a href='https://asciinema.org/a/ICVaUXghTVtuRZfdF2cZlgjn6'>link</a>
+
+### Example application for a nested tree format .json
+<a href='https://asciinema.org/a/OWWiMUWRd1WhjsVp8Ijd4yEYb'>link</a>
+
+### Example application for a nested tree format .yaml/yml
+<a href='https://asciinema.org/a/jPICSZkAPMisDWInZ6HGLu6uM'>link</a>

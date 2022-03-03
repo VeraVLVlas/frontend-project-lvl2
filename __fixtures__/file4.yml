@@ -1,5 +1,19 @@
-host: hexlet.io
-user: Vera_Vlasova
-timeout: 1500
-proxy: 123.234.53.98
-task: 6
+common:
+  follow: false
+  setting1: Value 1
+  setting2:
+    key0": value0
+  setting6:
+    key: value
+    doge:
+      wow: so much
+group1:
+  foo: bar
+  baz: bars
+  nest: str
+  job: programmer
+group3:
+  deep:
+    id:
+      number: 5600
+  fee: 89630

@@ -1,49 +1,63 @@
 import _ from 'lodash';
 import parsersFile from '../parsers/parsers.js';
+import stylish from '../stylish/stylish.js';
 
-const getSortedKeys = (data) => {
-  const keys = Object.keys(data).map((key) => key);
-  return _.sortBy(keys);
-};
-
-const willFormDiff = (data) => {
-  const result = data.map((elem) => elem);
-  return `{\n${result.join('\n')} \n}`;
-};
-
-const processesData = (file1, file2) => {
-  const copyData = { ...file1, ...file2 };
-
-  const keys = getSortedKeys(copyData);
+const createTree = (arg1, arg2) => {
+  const keyArg1 = Object.keys(arg1);
+  const keyArg2 = Object.keys(arg2);
+  const keys = _.sortBy(_.union(keyArg1, keyArg2));
 
   const diffData = keys.map((key) => {
-    if ((_.has(file1, key)
-    && _.has(file2, key) && file1[key] !== file2[key])) {
-      return ([
-        ` - ${key}:${file1[key]}`,
-        ` + ${key}:${file2[key]}`,
-      ]);
-    } if ((_.has(file1, key) && _.has(file2, key)
-    && file1[key] === file2[key])) {
-      return `   ${key}:${file1[key]}`;
-    } if ((_.has(file1, key))) {
-      return ` - ${key}:${file1[key]}`;
+    if (!_.has(arg1, key)) {
+      return {
+        name: key,
+        value: arg2[key],
+        type: 'add',
+      };
     }
-    return ` + ${key}:${file2[key]}`;
+    if (!_.has(arg2, key)) {
+      return {
+        name: key,
+        value: arg1[key],
+        type: 'deleted',
+      };
+    }
+    if (_.isObject(arg1[key]) && _.isObject(arg2[key])) {
+      return {
+        name: key,
+        type: 'embedded',
+        children: createTree(arg1[key], arg2[key]),
+      };
+    }
+    if (_.isEqual(arg1[key], arg2[key])) {
+      return {
+        name: key,
+        value: arg1[key],
+        type: 'no-change',
+      };
+    }
+    return {
+      name: key,
+      valueDelete: arg1[key],
+      valueAdd: arg2[key],
+      type: 'replacement',
+    };
   });
-
-  return diffData.flat();
+  return diffData;
 };
 
-export default (filepath1, filepath2) => {
+export default (filepath1, filepath2, formater) => {
+  if (!filepath1 || !filepath2) { return ''; }
+
   const file1 = parsersFile(filepath1);
   const file2 = parsersFile(filepath2);
-  const diff = processesData(file1, file2);
+  const data = createTree(file1, file2);
 
-  return willFormDiff(diff);
-};
-
-export {
-  processesData,
-  getSortedKeys,
+  switch (formater) {
+    case 'stylish':
+      return stylish(data);
+    default:
+      break;
+  }
+  return null;
 };

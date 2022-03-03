@@ -9,3 +9,7 @@ lint:
 #команда покажет статистику покрытия кода тестами
 test-coverage:
 	npx jest --coverage
+
+#команда для запуска тестов
+test:
+		npx jest
