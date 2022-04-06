@@ -15,8 +15,11 @@
 ### Application example for flat wood
 <a href='https://asciinema.org/a/ICVaUXghTVtuRZfdF2cZlgjn6'>link</a>
 
-### Example application for a nested tree format .json
+### Example application for a nested tree format .json formatter stylish
 <a href='https://asciinema.org/a/OWWiMUWRd1WhjsVp8Ijd4yEYb'>link</a>
 
-### Example application for a nested tree format .yaml/yml
+### Example application for a nested tree format .yaml/yml formatter stylish
 <a href='https://asciinema.org/a/jPICSZkAPMisDWInZ6HGLu6uM'>link</a>
+
+### Outputting data via the formatter plain
+<a href='https://asciinema.org/a/SomPAtZFMvRc30EfLkrPlZHq0'>link</a>

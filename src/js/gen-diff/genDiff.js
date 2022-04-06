@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import parsersFile from '../parsers/parsers.js';
-import stylish from '../stylish/stylish.js';
+import formatterSelection from '../formatters/index.js';
 
 const createTree = (arg1, arg2) => {
   const keyArg1 = Object.keys(arg1);
@@ -53,11 +53,5 @@ export default (filepath1, filepath2, formater) => {
   const file2 = parsersFile(filepath2);
   const data = createTree(file1, file2);
 
-  switch (formater) {
-    case 'stylish':
-      return stylish(data);
-    default:
-      break;
-  }
-  return null;
+  return formatterSelection(formater, data);
 };

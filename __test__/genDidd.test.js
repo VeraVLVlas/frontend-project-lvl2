@@ -12,16 +12,24 @@ const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf8');
 
 let dataFile1;
 let dataFile2;
-let result;
+let resultFormaterStylish;
+let resultFormaterPlain;
 
 beforeAll(() => {
   dataFile1 = getFixturePath('file1.json');
   dataFile2 = getFixturePath('file2.json');
-  result = readFile('resultFormaterStylish.txt');
+  resultFormaterStylish = readFile('result-formater-stylish.txt');
+  resultFormaterPlain = readFile('result-formater-plain.txt');
 });
 
 test('genDiff stylish', () => {
   expect(genDiff()).toEqual('');
   expect(genDiff(dataFile1, '', 'stylish')).toEqual('');
-  expect(genDiff(dataFile1, dataFile2, 'stylish')).toEqual(result);
+  expect(genDiff(dataFile1, dataFile2, 'stylish')).toEqual(resultFormaterStylish);
+});
+
+test('genDiff plain', () => {
+  expect(genDiff()).toEqual('');
+  expect(genDiff(dataFile1, '', 'plain')).toEqual('');
+  expect(genDiff(dataFile1, dataFile2, 'plain')).toEqual(resultFormaterPlain);
 });
