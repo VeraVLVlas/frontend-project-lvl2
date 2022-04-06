@@ -23,3 +23,6 @@
 
 ### Outputting data via the formatter plain
 <a href='https://asciinema.org/a/SomPAtZFMvRc30EfLkrPlZHq0'>link</a>
+
+### Outputting data via the formatter json
+<a href='https://asciinema.org/a/kZnfSh48vXSDaCpJPoVgvpzy1'>link</a>

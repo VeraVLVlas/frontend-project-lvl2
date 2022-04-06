@@ -14,22 +14,30 @@ let dataFile1;
 let dataFile2;
 let resultFormaterStylish;
 let resultFormaterPlain;
+let resultFormaterJson;
 
 beforeAll(() => {
   dataFile1 = getFixturePath('file1.json');
   dataFile2 = getFixturePath('file2.json');
   resultFormaterStylish = readFile('result-formater-stylish.txt');
   resultFormaterPlain = readFile('result-formater-plain.txt');
+  resultFormaterJson = readFile('result-formater-json.txt');
 });
 
-test('genDiff stylish', () => {
+test('formater stylish', () => {
   expect(genDiff()).toEqual('');
   expect(genDiff(dataFile1, '', 'stylish')).toEqual('');
   expect(genDiff(dataFile1, dataFile2, 'stylish')).toEqual(resultFormaterStylish);
 });
 
-test('genDiff plain', () => {
+test('formater plain', () => {
   expect(genDiff()).toEqual('');
   expect(genDiff(dataFile1, '', 'plain')).toEqual('');
   expect(genDiff(dataFile1, dataFile2, 'plain')).toEqual(resultFormaterPlain);
+});
+
+test('formater json', () => {
+  expect(genDiff()).toEqual('');
+  expect(genDiff(dataFile1, '', 'json')).toEqual('');
+  expect(genDiff(dataFile1, dataFile2, 'json')).toEqual(resultFormaterJson);
 });
