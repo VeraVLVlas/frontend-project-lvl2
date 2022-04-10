@@ -1,6 +1,6 @@
-import stylish from './stylish/stylish.js';
-import plain from './plain/plain.js';
-import jsonFormater from './formater-json/formater-json.js';
+import stylish from './stylish.js';
+import plain from './plain.js';
+import jsonFormater from './formater-json.js';
 
 export default (formater, data) => {
   switch (formater) {
@@ -11,8 +11,6 @@ export default (formater, data) => {
     case 'json':
       return jsonFormater(data);
     default:
-      console.log('no formatter');
-      break;
+      throw new Error(`Unknown formater ${formater}`);
   }
-  return null;
 };

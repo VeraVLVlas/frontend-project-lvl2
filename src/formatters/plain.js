@@ -1,10 +1,12 @@
 import _ from 'lodash';
 
-const checkElementNesting = (arg) => (!_.isObject(arg) ? arg : '[complex value]');
+const isString = (value) => (typeof value === 'string' ? `'${value}'` : value);
+
+const getFormatAndReturnValue = (value) => (!_.isObject(value) ? isString(value) : '[complex value]');
 
 const plainFormater = (data) => {
-  const iter = (arg, key) => {
-    const result = arg.flatMap((elem) => {
+  const iter = (value, key) => {
+    const result = value.flatMap((elem) => {
       const newKeys = [...key, elem.name];
 
       switch (elem.type) {
@@ -15,9 +17,9 @@ const plainFormater = (data) => {
         case 'deleted':
           return `Property '${newKeys.join('.')}' was removed`;
         case 'replacement':
-          return `Property '${newKeys.join('.')}' was updated. From '${checkElementNesting(elem.valueDelete)}' to '${checkElementNesting(elem.valueAdd)}'`;
-        case 'add':
-          return `Property '${newKeys.join('.')}' was added with value: '${checkElementNesting(elem.value)}'`;
+          return `Property '${newKeys.join('.')}' was updated. From ${getFormatAndReturnValue(elem.valueDeleted)} to ${getFormatAndReturnValue(elem.valueAdded)}`;
+        case 'added':
+          return `Property '${newKeys.join('.')}' was added with value: ${getFormatAndReturnValue(elem.value)}`;
         default:
           break;
       }

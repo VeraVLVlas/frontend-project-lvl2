@@ -6,7 +6,7 @@
       {
         "name": "follow",
         "value": false,
-        "type": "add"
+        "type": "added"
       },
       {
         "name": "setting1",
@@ -20,21 +20,21 @@
       },
       {
         "name": "setting3",
-        "valueDelete": true,
-        "valueAdd": null,
+        "valueDeleted": true,
+        "valueAdded": null,
         "type": "replacement"
       },
       {
         "name": "setting4",
         "value": "blah blah",
-        "type": "add"
+        "type": "added"
       },
       {
         "name": "setting5",
         "value": {
           "key5": "value5"
         },
-        "type": "add"
+        "type": "added"
       },
       {
         "name": "setting6",
@@ -46,8 +46,8 @@
             "children": [
               {
                 "name": "wow",
-                "valueDelete": "",
-                "valueAdd": "so much",
+                "valueDeleted": "",
+                "valueAdded": "so much",
                 "type": "replacement"
               }
             ]
@@ -60,7 +60,7 @@
           {
             "name": "ops",
             "value": "vops",
-            "type": "add"
+            "type": "added"
           }
         ]
       }
@@ -72,8 +72,8 @@
     "children": [
       {
         "name": "baz",
-        "valueDelete": "bas",
-        "valueAdd": "bars",
+        "valueDeleted": "bas",
+        "valueAdded": "bars",
         "type": "replacement"
       },
       {
@@ -83,10 +83,10 @@
       },
       {
         "name": "nest",
-        "valueDelete": {
+        "valueDeleted": {
           "key": "value"
         },
-        "valueAdd": "str",
+        "valueAdded": "str",
         "type": "replacement"
       }
     ]
@@ -111,6 +111,6 @@
       },
       "fee": 100500
     },
-    "type": "add"
+    "type": "added"
   }
 ]

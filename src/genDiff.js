@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import parsersFile from '../parsers/parsers.js';
-import formatterSelection from '../formatters/index.js';
+import path from 'path';
+import parsersFile from './parsers/parsers.js';
+import formatterSelection from './formatters/index.js';
 
 const createTree = (arg1, arg2) => {
   const keyArg1 = Object.keys(arg1);
@@ -12,7 +13,7 @@ const createTree = (arg1, arg2) => {
       return {
         name: key,
         value: arg2[key],
-        type: 'add',
+        type: 'added',
       };
     }
     if (!_.has(arg2, key)) {
@@ -38,20 +39,26 @@ const createTree = (arg1, arg2) => {
     }
     return {
       name: key,
-      valueDelete: arg1[key],
-      valueAdd: arg2[key],
+      valueDeleted: arg1[key],
+      valueAdded: arg2[key],
       type: 'replacement',
     };
   });
   return diffData;
 };
 
-export default (filepath1, filepath2, formater) => {
-  if (!filepath1 || !filepath2) { return ''; }
+const getFileExtension = (pathFile) => {
+  const fileName = pathFile.split('/').slice(-1).join();
+  const fileExtension = path.extname(fileName);
+  return [pathFile, fileExtension];
+};
 
-  const file1 = parsersFile(filepath1);
-  const file2 = parsersFile(filepath2);
+const genDiff = (filepath1, filepath2, formater = 'stylish') => {
+  const file1 = parsersFile(getFileExtension(filepath1));
+  const file2 = parsersFile(getFileExtension(filepath2));
   const data = createTree(file1, file2);
 
   return formatterSelection(formater, data);
 };
+
+export default genDiff;
