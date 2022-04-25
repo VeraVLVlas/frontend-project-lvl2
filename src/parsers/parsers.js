@@ -1,16 +1,15 @@
 import yaml from 'js-yaml';
-import { readFileSync } from 'fs';
 
 export default (fileData) => {
-  const [pathFile, fileExtension] = fileData;
+  const [dataFile, fileExtension] = fileData;
 
   switch (fileExtension) {
     case '.yaml':
-      return yaml.load(readFileSync(pathFile, 'utf8'));
+      return yaml.load(dataFile);
     case '.yml':
-      return yaml.load(readFileSync(pathFile, 'utf8'));
+      return yaml.load(dataFile);
     case '.json':
-      return JSON.parse(readFileSync(pathFile));
+      return JSON.parse(dataFile);
     default:
       throw new Error(`Unknown file extension: ${fileExtension}`);
   }

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import path from 'path';
+import { readFileSync } from 'fs';
 import parsersFile from './parsers/parsers.js';
 import formatterSelection from './formatters/index.js';
 
@@ -47,15 +48,15 @@ const createTree = (arg1, arg2) => {
   return diffData;
 };
 
-const getFileExtension = (pathFile) => {
-  const fileName = pathFile.split('/').slice(-1).join();
-  const fileExtension = path.extname(fileName);
-  return [pathFile, fileExtension];
+const getFileExtensionAndReadFile = (pathFile) => {
+  const fileExtension = path.extname(pathFile);
+  const dataFile = readFileSync(pathFile);
+  return [dataFile, fileExtension];
 };
 
 const genDiff = (filepath1, filepath2, formater = 'stylish') => {
-  const file1 = parsersFile(getFileExtension(filepath1));
-  const file2 = parsersFile(getFileExtension(filepath2));
+  const file1 = parsersFile(getFileExtensionAndReadFile(filepath1));
+  const file2 = parsersFile(getFileExtensionAndReadFile(filepath2));
   const data = createTree(file1, file2);
 
   return formatterSelection(formater, data);

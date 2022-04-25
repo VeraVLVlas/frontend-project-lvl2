@@ -21,9 +21,8 @@ const plainFormater = (data) => {
         case 'added':
           return `Property '${newKeys.join('.')}' was added with value: ${getFormatAndReturnValue(elem.value)}`;
         default:
-          break;
+          throw new Error(`Unknown type ${elem.type}`);
       }
-      return null;
     });
 
     return result.filter((elem) => elem !== null).join('\n');

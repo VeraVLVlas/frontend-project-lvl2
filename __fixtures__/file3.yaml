@@ -7,11 +7,11 @@ common:
     doge:
       wow: ""
 group1:
-  baz: bas,
+  baz: bas
   foo: bar
-  nest: 
+  nest:
     key: value
-group2: 
+group2:
   abc: 12345
   deep:
     id: 45
